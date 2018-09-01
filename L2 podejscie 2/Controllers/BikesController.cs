@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using L2_podejscie_2.Models;
+using L2_podejscie_2.ViewModels;
 
 namespace L2_podejscie_2.Controllers
 {
@@ -13,7 +14,19 @@ namespace L2_podejscie_2.Controllers
         public ActionResult Random()
         {
             var bike = new Bike() {Name = "Honda"};
-            return View(bike);
+            var customers = new List<Customer>()
+            {
+                new Customer {Name = "Customer 1"},
+                new Customer {Name = "Customer 2"}
+            };
+
+            var viewModel = new RandomBikeViewModel
+            {
+                Bike = bike,
+                Customers = customers
+            };
+
+            return View(viewModel);
 
         }
 
