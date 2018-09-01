@@ -4,18 +4,25 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.Bike.Model</h2>
+<h2>@Model.Bike.Brand @Model.Bike.Model </h2>
+<h4>Year: @Model.Bike.Year</h4>
+<h4>Capacity: @Model.Bike.Capacity</h4>
+<h4>Price: @Model.Bike.Price</h4>
 
+<br />
+<br />
 @if (Model.Customers.Count == 0)
 {
     <p>No one has rented this bike before.</p>
 }
 else
 {
+ 
+    <h4>List of customers who have already bought this bike:</h4>
     <ul>
         @foreach (var customer in Model.Customers)
         {
-            <li>@customer.Name</li>
+            <li>@customer.Name @customer.Surname</li>
         }
     </ul>
 }
