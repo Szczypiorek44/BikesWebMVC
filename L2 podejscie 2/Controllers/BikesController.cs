@@ -9,12 +9,12 @@ namespace L2_podejscie_2.Controllers
 {
     public class BikesController : Controller
     {
+        private L2Entities1 database = new L2Entities1();
+
         private static readonly Random Rnd = new Random();
-        // GET: Bikes
+
         public ActionResult Random()
         {
-            var database = new L2Entities1();
-
             var bikes = database.Bikes.ToList();
             var randomId = Rnd.Next(bikes.Count);
             var bike = bikes[randomId];
@@ -37,21 +37,40 @@ namespace L2_podejscie_2.Controllers
             return View(viewModel);
 
         }
-
-        public ActionResult Edit(int id)
+        public ActionResult Show(int id)
         {
-            return Content("id=" + id);
+            var bikes = database.Bikes.ToList();
+            var viewModel = new ShowBikeViewModel();
+
+            var bike = bikes.Find(predicate => predicate.Id == id);
+
+            if (bike == null)
+                return View();
+
+            var transactions = database.Transactions.ToList();
+            var customers = new List<Customer>();
+            foreach (var transaction in transactions)
+            {
+                if (transaction.BikeId == bike.Id)
+                    customers.Add(transaction.Customer);
+            }
+
+            viewModel.Bike = bike;
+            viewModel.Customers = customers;
+
+            return View(viewModel);
         }
 
-        public ActionResult Index(int? pageIndex, string sortBy)
+        public ActionResult Index()
         {
-            if (!pageIndex.HasValue)
-                pageIndex = 1;
+            var bikes = database.Bikes.ToList();
 
-            if (String.IsNullOrWhiteSpace(sortBy))
-                sortBy = "Name";
+            var viewModel = new IndexBikeViewModel()
+            {
+                Bikes = bikes
+            };
 
-            return Content(String.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
+            return View(viewModel);
         }
 
         [Route("bikes/released/{year:regex(\\d{4})}/{month:regex(\\d{2}):range(1, 12)}")]

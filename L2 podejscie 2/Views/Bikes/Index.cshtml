@@ -1,0 +1,15 @@
+﻿@model L2_podejscie_2.ViewModels.IndexBikeViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Bike List:</h2>
+
+<ul>
+    @foreach (var bike in Model.Bikes)
+    {
+    <li>@Html.ActionLink(@bike.Brand + " " + @bike.Model + " " + @bike.Year, "Show", new {id=bike.Id}, "Bikes")</li>
+    }
+</ul>
+
