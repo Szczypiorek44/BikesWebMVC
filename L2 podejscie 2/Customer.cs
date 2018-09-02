@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace L2_podejscie_2
 {
     using System;
@@ -21,12 +23,19 @@ namespace L2_podejscie_2
         }
     
         public int Id { get; set; }
+        [Required(ErrorMessage = "this field is required.")]
         public string Login { get; set; }
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "this field is required.")]
         public string Password { get; set; }
+        [Required(ErrorMessage = "this field is required.")]
         public string Name { get; set; }
+        [Required(ErrorMessage = "this field is required.")]
         public string Surname { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> Transactions { get; set; }
+
+        public string ErrorMessage { get; set; }
     }
 }

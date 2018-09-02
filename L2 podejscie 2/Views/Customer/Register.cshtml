@@ -1,0 +1,28 @@
+﻿@model Customer
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Register</h2>
+    @using (Html.BeginForm("AuthorizeRegister", "Customer", FormMethod.Post))
+    {
+        @Html.EditorFor(model => model.Login, new { htmlAttributes = new { placeholder = "enter login" } })<br />
+        @Html.ValidationMessageFor(model => model.Login)<br />
+        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { placeholder = "enter password" } })<br />
+        @Html.ValidationMessageFor(model => model.Password)<br />
+        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "enter name" } })<br />
+        @Html.ValidationMessageFor(model => model.Name)<br />
+        @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { placeholder = "enter surname" } })<br />
+        @Html.ValidationMessageFor(model => model.Surname)<br /> <br />
+
+        <label class="field-validation-error">@Html.DisplayFor(model => model.ErrorMessage)</label><br />
+
+        <input type="submit" value="Register" /><br /><br />
+
+        <p>Already have an account?</p>
+        <input type="button" value="Log In" onclick="location.href = '@Url.Action("Login", "Customer")'" />
+    }
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

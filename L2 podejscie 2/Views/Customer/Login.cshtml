@@ -1,0 +1,24 @@
+﻿@model Customer
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Login</h2>
+    @using (Html.BeginForm("AuthorizeLogin", "Customer", FormMethod.Post))
+    {
+        @Html.EditorFor(model => model.Login, new { htmlAttributes = new { placeholder = "enter login" } })<br />
+        @Html.ValidationMessageFor(model => model.Login)<br />
+        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { placeholder = "enter password" } })<br />
+        @Html.ValidationMessageFor(model => model.Password)<br /> <br />
+
+        <label class="field-validation-error">@Html.DisplayFor(model => model.ErrorMessage)</label><br/>
+
+        <input type="submit" value="Log In" /><br /><br />
+
+        <p>Don't have account yet?</p>
+        <input type="button" value="Register" onclick="location.href = '@Url.Action("Register", "Customer")'" />
+    }
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
