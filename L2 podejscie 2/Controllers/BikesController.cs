@@ -78,5 +78,35 @@ namespace L2_podejscie_2.Controllers
         {
             return Content(year + "/" + month);
         }
+
+        [HttpPost]
+        public ActionResult AuthorizeBuy()
+        {
+            var customerId = Session["customerId"];
+            if (customerId == null)
+                return RedirectToAction("Login", "Customer");
+            else
+            {
+                using (L2Entities1 db = new L2Entities1())
+                {
+                    var transaction = new Transaction()
+                    {
+                        CustomerId = int.Parse(customerId.ToString()),
+                        BikeId = (int)Session["bikeId"],
+                        Date = DateTime.UtcNow.Date
+                    };
+                    db.Transactions.Add(transaction);
+                    db.SaveChanges();
+                    Session["bikeId"] = null;
+                    return RedirectToAction("BuySuccess", "Bikes");
+                }
+            }
+            
+        }
+
+        public ActionResult BuySuccess()
+        {
+            return View();
+        }
     }
 }

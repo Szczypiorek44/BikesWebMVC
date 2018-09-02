@@ -33,9 +33,8 @@ namespace L2_podejscie_2.Controllers
                 }
                 else
                 {
-                    Session["customerId"] = customer.Id;
+                    Session["customerId"] = userDetails.Id;
                     return RedirectToAction("Index", "Bikes");
-
                 }
             }
         }

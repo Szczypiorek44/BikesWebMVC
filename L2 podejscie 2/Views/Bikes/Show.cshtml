@@ -17,10 +17,16 @@ else
     <h4>Price: @Model.Bike.Price</h4>
 
     <br />
+    using (Html.BeginForm("AuthorizeBuy", "Bikes", FormMethod.Post))
+    {
+        Session["bikeId"] = Model.Bike.Id;
+         <input type="submit" value="Buy this bike" />
+     }
+    
     <br />
     if (Model.Customers.Count == 0)
-     {
-         <p>No one has bought this bike before.</p>
+    {
+        <p>No one has bought this bike before.</p>
     }
     else
     {
